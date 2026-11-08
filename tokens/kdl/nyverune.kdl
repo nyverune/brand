@@ -1,0 +1,18 @@
+// Nyverune theme for Zellij
+// https://github.com/nyverune/brand
+
+themes {
+    nyverune {
+        bg "#100D16"
+        fg "#F6F0FC"
+        black "#181224"
+        red "#FF5C72"
+        green "#75D6A3"
+        yellow "#FFC36B"
+        blue "#72B7FF"
+        magenta "#A855F7"
+        cyan "#C084FC"
+        white "#8B8297"
+        orange "#FF5CB8"
+    }
+}

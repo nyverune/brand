@@ -1,0 +1,34 @@
+# Nyverune theme for Alacritty
+# https://github.com/nyverune/brand
+
+[colors.primary]
+background = "#100D16"
+foreground = "#F6F0FC"
+
+[colors.cursor]
+text   = "#100D16"
+cursor = "#A855F7"
+
+[colors.selection]
+text       = "#F6F0FC"
+background = "#4C3268"
+
+[colors.normal]
+black   = "#181224"
+red     = "#FF5C72"
+green   = "#75D6A3"
+yellow  = "#FFC36B"
+blue    = "#72B7FF"
+magenta = "#A855F7"
+cyan    = "#C084FC"
+white   = "#8B8297"
+
+[colors.bright]
+black   = "#21182B"
+red     = "#FF5C72"
+green   = "#75D6A3"
+yellow  = "#FFC36B"
+blue    = "#72B7FF"
+magenta = "#FF5CB8"
+cyan    = "#C084FC"
+white   = "#F6F0FC"
