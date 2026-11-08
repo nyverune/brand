@@ -1,0 +1,65 @@
+/**
+ * Nyverune Official Brand Tokens
+ * https://github.com/nyverune/brand
+ */
+
+:root {
+  /* Core Brand Tokens */
+  --nyverune-background: #100D16;
+  --nyverune-foreground: #F6F0FC;
+  --nyverune-surface: #181224;
+  --nyverune-surface-muted: #21182B;
+  --nyverune-primary: #A855F7;
+  --nyverune-secondary: #FF5CB8;
+  --nyverune-accent: #C084FC;
+  --nyverune-muted: #8B8297;
+  --nyverune-selection: #4C3268;
+  --nyverune-border: #2E2242;
+  --nyverune-error: #FF5C72;
+  --nyverune-warning: #FFC36B;
+  --nyverune-success: #75D6A3;
+  --nyverune-info: #72B7FF;
+
+  /* RGB channels for opacity / alpha support */
+  --nyverune-background-rgb: 16, 13, 22;
+  --nyverune-foreground-rgb: 246, 240, 252;
+  --nyverune-surface-rgb: 24, 18, 36;
+  --nyverune-surface-muted-rgb: 33, 24, 43;
+  --nyverune-primary-rgb: 168, 85, 247;
+  --nyverune-secondary-rgb: 255, 92, 184;
+  --nyverune-accent-rgb: 192, 132, 252;
+  --nyverune-muted-rgb: 139, 130, 151;
+  --nyverune-selection-rgb: 76, 50, 104;
+  --nyverune-border-rgb: 46, 34, 66;
+  --nyverune-error-rgb: 255, 92, 114;
+  --nyverune-warning-rgb: 255, 195, 107;
+  --nyverune-success-rgb: 117, 214, 163;
+  --nyverune-info-rgb: 114, 183, 255;
+}
+
+/* Background utilities */
+.bg-nyverune-background    { background-color: var(--nyverune-background); }
+.bg-nyverune-surface       { background-color: var(--nyverune-surface); }
+.bg-nyverune-surface-muted { background-color: var(--nyverune-surface-muted); }
+.bg-nyverune-primary       { background-color: var(--nyverune-primary); }
+.bg-nyverune-secondary     { background-color: var(--nyverune-secondary); }
+.bg-nyverune-accent        { background-color: var(--nyverune-accent); }
+.bg-nyverune-selection     { background-color: var(--nyverune-selection); }
+
+/* Text utilities */
+.text-nyverune-foreground  { color: var(--nyverune-foreground); }
+.text-nyverune-muted       { color: var(--nyverune-muted); }
+.text-nyverune-primary     { color: var(--nyverune-primary); }
+.text-nyverune-secondary   { color: var(--nyverune-secondary); }
+.text-nyverune-accent      { color: var(--nyverune-accent); }
+.text-nyverune-error       { color: var(--nyverune-error); }
+.text-nyverune-warning     { color: var(--nyverune-warning); }
+.text-nyverune-success     { color: var(--nyverune-success); }
+.text-nyverune-info        { color: var(--nyverune-info); }
+
+/* Border utilities */
+.border-nyverune           { border-color: var(--nyverune-border); }
+.border-nyverune-selection { border-color: var(--nyverune-selection); }
+.border-nyverune-primary   { border-color: var(--nyverune-primary); }
+.border-nyverune-accent    { border-color: var(--nyverune-accent); }
+.border-nyverune-error     { border-color: var(--nyverune-error); }

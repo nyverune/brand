@@ -1,0 +1,36 @@
+// Nyverune Official Brand Tokens
+// https://github.com/nyverune/brand
+
+// Core Brand Variables
+$nyverune-background: #100D16;
+$nyverune-foreground: #F6F0FC;
+$nyverune-surface: #181224;
+$nyverune-surface-muted: #21182B;
+$nyverune-primary: #A855F7;
+$nyverune-secondary: #FF5CB8;
+$nyverune-accent: #C084FC;
+$nyverune-muted: #8B8297;
+$nyverune-selection: #4C3268;
+$nyverune-border: #2E2242;
+$nyverune-error: #FF5C72;
+$nyverune-warning: #FFC36B;
+$nyverune-success: #75D6A3;
+$nyverune-info: #72B7FF;
+
+// Palette Map
+$nyverune-palette: (
+  "background": $nyverune-background,
+  "foreground": $nyverune-foreground,
+  "surface": $nyverune-surface,
+  "surface-muted": $nyverune-surface-muted,
+  "primary": $nyverune-primary,
+  "secondary": $nyverune-secondary,
+  "accent": $nyverune-accent,
+  "muted": $nyverune-muted,
+  "selection": $nyverune-selection,
+  "border": $nyverune-border,
+  "error": $nyverune-error,
+  "warning": $nyverune-warning,
+  "success": $nyverune-success,
+  "info": $nyverune-info,
+);
