@@ -6,6 +6,13 @@
 
 **Official brand identity, visual guidelines, logos, and design assets for Nyverune.**
 
+<p align="center">
+  <a href="https://github.com/nyverune/brand"><img src="assets/badges/built-with-nyverune.svg" alt="Built with Nyverune" /></a>
+  <a href="https://github.com/nyverune/brand"><img src="assets/badges/styled-with-nyverune.svg" alt="Styled with Nyverune" /></a>
+  <a href="https://github.com/nyverune/brand"><img src="assets/badges/theme-nyverune.svg" alt="Theme Nyverune" /></a>
+  <a href="https://github.com/nyverune/brand"><img src="assets/badges/ecosystem-nyverune.svg" alt="Ecosystem Nyverune" /></a>
+</p>
+
 ---
 
 Nyverune is a visual identity and design system crafted for modern **developer tools and infrastructure**. Rather than targeting a single environment, Nyverune powers an entire ecosystem:
@@ -82,7 +89,20 @@ All token files are generic and self-contained:
 
 ---
 
-## 4. Official Design Assets & Logos
+## 4. Official Badges
+
+Use these vector badges in your GitHub READMEs, documentation, and project websites:
+
+| Badge | Preview | Markdown Code |
+| :--- | :---: | :--- |
+| **Built with Nyverune** | ![](assets/badges/built-with-nyverune.svg) | `[![Built with Nyverune](https://raw.githubusercontent.com/nyverune/brand/main/assets/badges/built-with-nyverune.svg)](https://github.com/nyverune/brand)` |
+| **Styled with Nyverune** | ![](assets/badges/styled-with-nyverune.svg) | `[![Styled with Nyverune](https://raw.githubusercontent.com/nyverune/brand/main/assets/badges/styled-with-nyverune.svg)](https://github.com/nyverune/brand)` |
+| **Theme: Nyverune** | ![](assets/badges/theme-nyverune.svg) | `[![Theme Nyverune](https://raw.githubusercontent.com/nyverune/brand/main/assets/badges/theme-nyverune.svg)](https://github.com/nyverune/brand)` |
+| **Ecosystem: Nyverune** | ![](assets/badges/ecosystem-nyverune.svg) | `[![Ecosystem Nyverune](https://raw.githubusercontent.com/nyverune/brand/main/assets/badges/ecosystem-nyverune.svg)](https://github.com/nyverune/brand)` |
+
+---
+
+## 5. Official Design Assets & Logos
 
 All vector assets are in [`assets/`](./assets/) and are unified around the canonical emblem design:
 
@@ -100,7 +120,7 @@ All vector assets are in [`assets/`](./assets/) and are unified around the canon
 
 ---
 
-## 5. Visual Guidelines & Component Recipes
+## 6. Visual Guidelines & Component Recipes
 
 Detailed design philosophy, component recipes (web components, TUIs, diagnostic dialogs), and the **Three Golden Rules** are documented in [**`GUIDELINES.md`**](GUIDELINES.md).
 
