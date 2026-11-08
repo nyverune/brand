@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 166 28" width="166" height="28" fill="none">
+  <defs>
+    <clipPath id="ebadge-clip">
+      <rect width="166" height="28" rx="6"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#ebadge-clip)">
+    <!-- Left Background -->
+    <rect x="0" y="0" width="76" height="28" fill="#181224"/>
+    <!-- Right Background -->
+    <rect x="76" y="0" width="90" height="28" fill="#A855F7"/>
+
+    <!-- Left Label -->
+    <text x="10" y="18" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="500" fill="#8B8297">
+      Ecosystem
+    </text>
+
+    <!-- Right Value -->
+    <text x="86" y="18" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#F6F0FC">
+      Nyverune
+    </text>
+  </g>
+
+  <!-- Border -->
+  <rect x="0.5" y="0.5" width="165" height="27" rx="5.5" stroke="#4C3268" stroke-opacity="0.6"/>
+</svg>
