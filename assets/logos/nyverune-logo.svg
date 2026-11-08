@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 200" width="960" height="200" fill="none">
+  <defs>
+    <linearGradient id="nyverune-logo-grad" x1="20" y1="20" x2="160" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#C084FC"/>
+      <stop offset="50%" stop-color="#A855F7"/>
+      <stop offset="100%" stop-color="#FF5CB8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Left Icon Emblem (exact favicon geometry scaled and centered) -->
+  <g transform="translate(10, 10) scale(0.35)">
+    <!-- Runic Diamond Emblem -->
+    <path d="M 256 80 L 416 256 L 256 432 L 96 256 Z" 
+          stroke="url(#nyverune-logo-grad)" 
+          stroke-width="24" 
+          stroke-linejoin="round"/>
+
+    <!-- Center Rune -->
+    <path d="M 192 176 L 192 336" 
+          stroke="url(#nyverune-logo-grad)" 
+          stroke-width="28" 
+          stroke-linecap="round"/>
+
+    <path d="M 320 176 L 320 336" 
+          stroke="url(#nyverune-logo-grad)" 
+          stroke-width="28" 
+          stroke-linecap="round"/>
+
+    <path d="M 192 184 L 320 328" 
+          stroke="url(#nyverune-logo-grad)" 
+          stroke-width="28" 
+          stroke-linecap="round"/>
+  </g>
+
+  <!-- Wordmark Letters -->
+  <g transform="translate(195, 40)" fill="#F6F0FC">
+    <!-- N -->
+    <path d="M 24 24 H 42 L 72 78 V 24 H 88 V 96 H 70 L 40 42 V 96 H 24 Z"/>
+    <!-- Y -->
+    <path d="M 108 24 H 126 L 140 54 L 154 24 H 172 L 149 68 V 96 H 131 V 68 Z"/>
+    <!-- V -->
+    <path d="M 192 24 H 210 L 226 78 L 242 24 H 260 L 235 96 H 217 Z"/>
+    <!-- E -->
+    <path d="M 280 24 H 336 V 40 H 298 V 52 H 330 V 68 H 298 V 80 H 336 V 96 H 280 Z"/>
+    <!-- R -->
+    <path d="M 356 24 H 398 C 414 24 422 32 422 46 C 422 57 415 64 402 67 L 424 96 H 402 L 382 70 H 374 V 96 H 356 Z M 374 40 V 54 H 396 C 401 54 405 52 405 47 C 405 42 401 40 396 40 Z"/>
+    <!-- U -->
+    <path d="M 442 24 H 460 V 74 C 460 80 464 82 474 82 C 484 82 488 80 488 74 V 24 H 506 V 74 C 506 90 496 98 474 98 C 452 98 442 90 442 74 Z"/>
+    <!-- N -->
+    <path d="M 526 24 H 544 L 574 78 V 24 H 590 V 96 H 572 L 542 42 V 96 H 526 Z"/>
+    <!-- E -->
+    <path d="M 612 24 H 668 V 40 H 630 V 52 H 662 V 68 H 630 V 80 H 668 V 96 H 612 Z"/>
+    <!-- Accent Rune Diamond -->
+    <polygon points="702,52 712,62 702,72 692,62" fill="#FF5CB8"/>
+  </g>
+</svg>

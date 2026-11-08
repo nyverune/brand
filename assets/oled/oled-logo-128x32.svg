@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 32" width="512" height="128" shape-rendering="crispEdges">
+  <!-- 128x32 Monochrome Pixel-Art OLED display representation -->
+  <rect width="128" height="32" fill="#100D16"/>
+
+  <!-- Border -->
+  <rect x="2" y="0" width="124" height="1" fill="#A855F7"/>
+  <rect x="2" y="31" width="124" height="1" fill="#A855F7"/>
+  <rect x="2" y="0" width="1" height="32" fill="#A855F7"/>
+  <rect x="125" y="0" width="1" height="32" fill="#A855F7"/>
+
+  <!-- Corner Accents -->
+  <rect x="2" y="2" width="2" height="2" fill="#FF5CB8"/>
+  <rect x="124" y="2" width="2" height="2" fill="#FF5CB8"/>
+  <rect x="2" y="28" width="2" height="2" fill="#FF5CB8"/>
+  <rect x="124" y="28" width="2" height="2" fill="#FF5CB8"/>
+
+  <!-- Left Runic Diamond Glyph (centered at x=16, y=16) -->
+  <polygon points="16,10 22,16 16,22 10,16" stroke="#C084FC" stroke-width="1" fill="none"/>
+  <rect x="15" y="15" width="2" height="2" fill="#FF5CB8"/>
+
+  <!-- Right Runic Diamond Glyph (centered at x=111, y=16) -->
+  <polygon points="111,10 117,16 111,22 105,16" stroke="#C084FC" stroke-width="1" fill="none"/>
+  <rect x="110" y="15" width="2" height="2" fill="#FF5CB8"/>
+
+  <!-- Pixel-Art Title: NYVERUNE (Centered at y=8) -->
+  <text x="64" y="14" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" font-weight="bold" fill="#F6F0FC" letter-spacing="2">NYVERUNE</text>
+
+  <!-- Pixel-Art Subtitle (y=24) -->
+  <text x="64" y="24" text-anchor="middle" font-family="'Courier New', monospace" font-size="6" fill="#8B8297" letter-spacing="1.5">CORNE 3X6+3</text>
+</svg>

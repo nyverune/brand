@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" fill="none">
+  <defs>
+    <linearGradient id="nyverune-grad" x1="64" y1="64" x2="448" y2="448" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#C084FC"/>
+      <stop offset="50%" stop-color="#A855F7"/>
+      <stop offset="100%" stop-color="#FF5CB8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Runic Diamond Emblem -->
+  <path d="M 256 80 L 416 256 L 256 432 L 96 256 Z" 
+        stroke="url(#nyverune-grad)" 
+        stroke-width="24" 
+        stroke-linejoin="round"/>
+
+  <!-- Center Rune -->
+  <!-- Left Vertical Stela -->
+  <path d="M 192 176 L 192 336" 
+        stroke="url(#nyverune-grad)" 
+        stroke-width="28" 
+        stroke-linecap="round"/>
+
+  <!-- Right Vertical Stela -->
+  <path d="M 320 176 L 320 336" 
+        stroke="url(#nyverune-grad)" 
+        stroke-width="28" 
+        stroke-linecap="round"/>
+
+  <!-- Diagonal Connector -->
+  <path d="M 192 184 L 320 328" 
+        stroke="url(#nyverune-grad)" 
+        stroke-width="28" 
+        stroke-linecap="round"/>
+</svg>
