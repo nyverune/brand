@@ -49,5 +49,37 @@
     "warning": "hsl(36, 100%, 71%)",
     "success": "hsl(148, 56%, 65%)",
     "info": "hsl(211, 100%, 72%)"
+  },
+  "ansi16": {
+    "background": 0,
+    "foreground": 15,
+    "surface": 0,
+    "surface_muted": 8,
+    "primary": 5,
+    "secondary": 13,
+    "accent": 14,
+    "muted": 8,
+    "selection": 8,
+    "border": 8,
+    "error": 1,
+    "warning": 3,
+    "success": 2,
+    "info": 4
+  },
+  "ansi256": {
+    "background": 233,
+    "foreground": 255,
+    "surface": 234,
+    "surface_muted": 235,
+    "primary": 135,
+    "secondary": 205,
+    "accent": 183,
+    "muted": 245,
+    "selection": 60,
+    "border": 238,
+    "error": 203,
+    "warning": 215,
+    "success": 114,
+    "info": 75
   }
 }
