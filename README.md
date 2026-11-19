@@ -86,6 +86,7 @@ All token files are generic and self-contained:
 - **Tailwind Preset**: [`tokens/tailwind/tailwind.preset.js`](tokens/tailwind/tailwind.preset.js)
 - **ANSI Terminal Script**: [`tokens/ansi/nyverune.sh`](tokens/ansi/nyverune.sh)
 - **Zellij Theme**: [`tokens/kdl/nyverune.kdl`](tokens/kdl/nyverune.kdl)
+- **Zsh Theme**: [`tokens/zsh/nyverune.zsh-theme`](tokens/zsh/nyverune.zsh-theme)
 
 ---
 

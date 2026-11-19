@@ -1,0 +1,324 @@
+# ==============================================================================
+# Nyverune Zsh Theme
+# Official theme for the Nyverune Design System
+# https://github.com/nyverune/brand
+# ==============================================================================
+
+setopt prompt_subst
+autoload -Uz add-zsh-hook 2>/dev/null
+zmodload zsh/datetime 2>/dev/null
+
+# ------------------------------------------------------------------------------
+# 1. Color Palette Tokens (Nyverune Official TrueColor / ANSI Fallbacks)
+# ------------------------------------------------------------------------------
+if [[ "$COLORTERM" == "truecolor" || "$COLORTERM" == "24bit" || -n "$WT_SESSION" || -n "$ALACRITTY_LOG" || -n "$KITTY_WINDOW_ID" || "$TERM" == *"24bit"* || "$TERM" == *"truecolor"* || "$TERM" == "xterm-ghostty" ]]; then
+    _NY_RESET="%f%k"
+    _NY_PRIMARY="%F{#A855F7}"       # Neon Violet (Signature Focus / Brand)
+    _NY_SECONDARY="%F{#FF5CB8}"     # Dream Pink (Selection Marker '▸', Badges)
+    _NY_ACCENT="%F{#C084FC}"        # Luminous Lilac (Tux, Git Icon, Triggers)
+    _NY_MUTED="%F{#8B8297}"         # Muted Gray (Time, Connectors, Dividers)
+    _NY_INFO="%F{#72B7FF}"          # Sky Blue (Paths, URLs, Hostnames)
+    _NY_SUCCESS="%F{#75D6A3}"       # Mint Green (Clean Status, Exit Code 0 '✓')
+    _NY_WARNING="%F{#FFC36B}"       # Warm Amber (Dirty Status, Jobs '!')
+    _NY_ERROR="%F{#FF5C72}"         # Coral Red (Failures, Root Indicator '✗')
+    _NY_FG="%F{#F6F0FC}"            # Ethereal White (Reading Text)
+    _NY_SURFACE="%K{#181224}"       # Elevated Surface (Capsule Background)
+    _NY_SURFACE_FG="%F{#181224}"    # Surface Foreground (Capsule Caps)
+    _NY_BORDER="%F{#2E2242}"        # Subtle Divider
+else
+    _NY_RESET="%f%k"
+    _NY_PRIMARY="%F{135}"
+    _NY_SECONDARY="%F{205}"
+    _NY_ACCENT="%F{183}"
+    _NY_MUTED="%F{245}"
+    _NY_INFO="%F{75}"
+    _NY_SUCCESS="%F{114}"
+    _NY_WARNING="%F{215}"
+    _NY_ERROR="%F{203}"
+    _NY_FG="%F{255}"
+    _NY_SURFACE="%K{234}"
+    _NY_SURFACE_FG="%F{234}"
+    _NY_BORDER="%F{238}"
+fi
+
+# ------------------------------------------------------------------------------
+# 2. Customizable Theme Variables & Icons
+# ------------------------------------------------------------------------------
+: ${NYVERUNE_TUX_ICON:=""}          # Tux Linux Mascot (Nerd Font: )
+: ${NYVERUNE_TIME_ICON:="󱑂"}         # Clock Glyph
+: ${NYVERUNE_DIR_ICON:=""}          # Folder Glyph
+: ${NYVERUNE_GIT_ICON:=""}          # Git Branch Glyph (Powerline \ue0a0)
+: ${NYVERUNE_MARKER:=""}            # Keyboard input marker: Powerline branch symbol 
+: ${NYVERUNE_STYLE:="single"}        # Prompt style: "single" (1-line), "pills", "multiline"
+: ${NYVERUNE_SHOW_TIME:=true}        # Display clock timestamp
+: ${NYVERUNE_TIME_FORMAT:="%H:%M:%S"}# Time format
+: ${NYVERUNE_SHOW_DURATION:=true}    # Show command execution time in RPROMPT
+: ${NYVERUNE_CMD_MAX_EXEC_TIME:=2}   # Duration threshold (seconds)
+
+# ------------------------------------------------------------------------------
+# 3. Git Status Engine (Fast, Portable, Zero-Dependency)
+# ------------------------------------------------------------------------------
+_nyverune_git_status() {
+    _NY_GIT_STR=""
+    _NY_GIT_PLAIN=""
+    command -v git >/dev/null 2>&1 || return
+
+    local git_dir
+    git_dir=$(git rev-parse --git-dir 2>/dev/null) || return
+
+    local branch
+    branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+    if [[ -z "$branch" ]]; then
+        branch=$(git describe --tags --exact-match 2>/dev/null) || \
+        branch=$(git rev-parse --short HEAD 2>/dev/null) || return
+    fi
+
+    local status_raw
+    status_raw=$(git status --porcelain -b 2>/dev/null) || return
+
+    local flags=""
+    local ahead=""
+    local behind=""
+
+    local first_line="${status_raw%%$'\n'*}"
+    if [[ "$first_line" =~ '\[ahead ([0-9]+)' ]]; then
+        ahead="%B${_NY_PRIMARY}⇡${match[1]}%b"
+    fi
+    if [[ "$first_line" =~ 'behind ([0-9]+)' ]]; then
+        behind="%B${_NY_SECONDARY}⇣${match[1]}%b"
+    fi
+
+    local body="${status_raw#*$'\n'}"
+    if [[ -n "$body" && "$body" != "$status_raw" ]]; then
+        local staged_count=0
+        local unstaged_count=0
+        local untracked_count=0
+
+        while IFS= read -r line; do
+            [[ -z "$line" ]] && continue
+            local idx_c="${line[1]}"
+            local wrk_c="${line[2]}"
+
+            if [[ "$idx_c" == '?' ]]; then
+                (( untracked_count++ ))
+            else
+                [[ "$idx_c" != ' ' && "$idx_c" != '?' ]] && (( staged_count++ ))
+                [[ "$wrk_c" != ' ' && "$wrk_c" != '?' ]] && (( unstaged_count++ ))
+            fi
+        done <<< "$body"
+
+        [[ $staged_count -gt 0 ]] && flags+="${_NY_PRIMARY}+${staged_count}%f"
+        [[ $unstaged_count -gt 0 ]] && flags+="${_NY_WARNING}!${unstaged_count}%f"
+        [[ $untracked_count -gt 0 ]] && flags+="${_NY_ACCENT}?${untracked_count}%f"
+    fi
+
+    local state_symbol
+    if [[ -z "$flags" ]]; then
+        state_symbol="${_NY_SUCCESS}✓%f"
+    else
+        state_symbol="${flags}"
+    fi
+
+    local sync_str=""
+    [[ -n "$ahead" ]] && sync_str+=" ${ahead}"
+    [[ -n "$behind" ]] && sync_str+=" ${behind}"
+
+    local plain_state="✓"
+    if [[ -n "$flags" ]]; then
+        plain_state=""
+        [[ $staged_count -gt 0 ]] && plain_state+="+${staged_count}"
+        [[ $unstaged_count -gt 0 ]] && plain_state+="!${unstaged_count}"
+        [[ $untracked_count -gt 0 ]] && plain_state+="?${untracked_count}"
+    fi
+
+    local plain_sync=""
+    [[ -n "$ahead" ]] && plain_sync+=" ⇡${ahead##*⇡}"
+    [[ -n "$behind" ]] && plain_sync+=" ⇣${behind##*⇣}"
+
+    local plain_prefix=""
+    [[ -n "$NYVERUNE_GIT_ICON" ]] && plain_prefix="${NYVERUNE_GIT_ICON} "
+    _NY_GIT_PLAIN="${plain_prefix}${branch} [${plain_state}${plain_sync}]"
+
+    local git_prefix=""
+    [[ -n "$NYVERUNE_GIT_ICON" ]] && git_prefix="${_NY_ACCENT}${NYVERUNE_GIT_ICON}%f "
+
+    _NY_GIT_STR="${git_prefix}%B${_NY_SECONDARY}${branch}%b%f [${state_symbol}${sync_str}]"
+    echo "$_NY_GIT_STR"
+}
+
+# ------------------------------------------------------------------------------
+# 4. Environment & Execution Helpers
+# ------------------------------------------------------------------------------
+_nyverune_venv() {
+    local venv=""
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        venv="${VIRTUAL_ENV:t}"
+    elif [[ -n "$CONDA_DEFAULT_ENV" ]]; then
+        venv="$CONDA_DEFAULT_ENV"
+    fi
+    [[ -n "$venv" ]] && echo "${_NY_MUTED}(${_NY_ACCENT}${venv}${_NY_MUTED})%f"
+}
+
+_nyverune_jobs() {
+    [[ -n "${jobstates}" ]] && echo "${_NY_WARNING}⚙ %j%f"
+}
+
+_nyverune_preexec() {
+    _NY_CMD_START_TIME=$EPOCHSECONDS
+}
+
+_nyverune_calc_duration() {
+    if [[ -n "$_NY_CMD_START_TIME" ]]; then
+        local elapsed=$(( EPOCHSECONDS - _NY_CMD_START_TIME ))
+        unset _NY_CMD_START_TIME
+        if [[ $elapsed -ge $NYVERUNE_CMD_MAX_EXEC_TIME ]]; then
+            local dur=""
+            if [[ $elapsed -ge 3600 ]]; then
+                dur="$(( elapsed / 3600 ))h $(( (elapsed % 3600) / 60 ))m"
+            elif [[ $elapsed -ge 60 ]]; then
+                dur="$(( elapsed / 60 ))m $(( elapsed % 60 ))s"
+            else
+                dur="${elapsed}s"
+            fi
+            echo "${_NY_MUTED}${dur}%f"
+        fi
+    fi
+}
+
+# ------------------------------------------------------------------------------
+# 5. Prompt Assembly
+# ------------------------------------------------------------------------------
+_nyverune_render_prompt() {
+    local last_exit=$?
+
+    # Tux mascot
+    local tux=""
+    if [[ -n "$NYVERUNE_TUX_ICON" ]]; then
+        tux="${_NY_ACCENT}${NYVERUNE_TUX_ICON}%f"
+    fi
+
+    # User & Host
+    local user_color="${_NY_PRIMARY}"
+    [[ "$UID" -eq 0 ]] && user_color="${_NY_ERROR}"
+    local user_str="%B${user_color}%n%b%f"
+    if [[ -n "$SSH_CLIENT" || -n "$SSH_TTY" ]]; then
+        user_str+="${_NY_MUTED}@${_NY_INFO}%m%f"
+    fi
+
+    # Time segment
+    local time_str=""
+    if [[ "$NYVERUNE_SHOW_TIME" == true ]]; then
+        local t_prefix=""
+        [[ -n "$NYVERUNE_TIME_ICON" ]] && t_prefix="${NYVERUNE_TIME_ICON} "
+        time_str="${_NY_MUTED}${t_prefix}%D{${NYVERUNE_TIME_FORMAT}}%f"
+    fi
+
+    # Path segment (using official brand Info color)
+    local p_prefix=""
+    [[ -n "$NYVERUNE_DIR_ICON" ]] && p_prefix="${NYVERUNE_DIR_ICON} "
+    local path_str="${_NY_INFO}${p_prefix}%~%f"
+
+    # Dynamic status segments
+    _nyverune_git_status >/dev/null
+    local git_str="$_NY_GIT_STR"
+    local git_plain="$_NY_GIT_PLAIN"
+    local venv_str="$(_nyverune_venv)"
+    local jobs_str="$(_nyverune_jobs)"
+    local duration_str="$(_nyverune_calc_duration)"
+
+    # Command status / return code (Nyverune Error Coral Red)
+    local err_str=""
+    if [[ $last_exit -ne 0 ]]; then
+        err_str="%B${_NY_ERROR}✗ ${last_exit}%b%f "
+    fi
+
+    # Assemble prompt
+    case "${NYVERUNE_STYLE}" in
+        pills)
+            local cap_l="${_NY_SURFACE_FG}${_NY_SURFACE}"
+            local cap_r="${_NY_RESET}${_NY_SURFACE_FG}${_NY_RESET}"
+            local sep="${_NY_BORDER} │ ${_NY_RESET}${_NY_SURFACE}"
+
+            local content="${path_str}"
+            [[ -n "$git_str" ]] && content+="${sep}${git_str}"
+            [[ -n "$venv_str" ]] && content+="${sep}${venv_str}"
+            [[ -n "$jobs_str" ]] && content+="${sep}${jobs_str}"
+            [[ -n "$time_str" ]] && content+="${sep}${time_str}"
+
+            local tux_color="${_NY_ACCENT}"
+            [[ $last_exit -ne 0 ]] && tux_color="${_NY_ERROR}"
+            local line2="%B${tux_color}${NYVERUNE_TUX_ICON}%b%f  "
+
+            PROMPT="
+${cap_l}${content}${cap_r}
+${line2}"
+            ;;
+
+        *)
+            # Line 1: <path> on <branch with symbol> on the left, <time> on the right
+            local path_plain="${NYVERUNE_DIR_ICON:+${NYVERUNE_DIR_ICON} }${(%):-%~}"
+            local time_plain=""
+            [[ "$NYVERUNE_SHOW_TIME" == true ]] && time_plain="${NYVERUNE_TIME_ICON:+${NYVERUNE_TIME_ICON} }${(%):-%D{${NYVERUNE_TIME_FORMAT}}}"
+
+            local left_col="${path_str}"
+            local left_plain="${path_plain}"
+
+            if [[ -n "$git_str" ]]; then
+                left_col+="  ${_NY_MUTED}on${_NY_RESET}  ${git_str}"
+                left_plain+="  on  ${git_plain}"
+            fi
+            [[ -n "$venv_str" ]] && { left_col+="  ${venv_str}"; left_plain+="  (${VIRTUAL_ENV:t})"; }
+            [[ -n "$jobs_str" ]] && { left_col+="  ${jobs_str}"; left_plain+="  ⚙"; }
+
+            local right_col="${time_str}"
+            local right_plain="${time_plain}"
+
+            local left_len=${#left_plain}
+            local right_len=${#right_plain}
+            local cols=${COLUMNS:-80}
+            # Keep 1 column margin so terminal emulator never triggers autowrap on the last column
+            local pad=$(( cols - left_len - right_len - 1 ))
+
+            local line1=""
+            if [[ $pad -gt 0 && -n "$right_col" ]]; then
+                local spaces=""
+                printf -v spaces "%*s" "$pad" ""
+                line1="${left_col}${spaces}${right_col}"
+            else
+                line1="${left_col}  ${right_col}"
+            fi
+
+            # Line 2: Penguin mascot only with trailing space (turns Coral Red on error)
+            local tux_color="${_NY_ACCENT}"
+            [[ $last_exit -ne 0 ]] && tux_color="${_NY_ERROR}"
+            local line2="%B${tux_color}${NYVERUNE_TUX_ICON}%b%f  "
+
+            PROMPT="
+${line1}
+${line2}"
+            ;;
+    esac
+
+    # Right prompt
+    if [[ "$NYVERUNE_SHOW_DURATION" == true && -n "$duration_str" ]]; then
+        RPROMPT="${duration_str}"
+    else
+        RPROMPT=""
+    fi
+
+    return $last_exit
+}
+
+# ------------------------------------------------------------------------------
+# 6. Hook Registration & Initialization
+# ------------------------------------------------------------------------------
+if typeset -f add-zsh-hook >/dev/null 2>&1; then
+    add-zsh-hook precmd _nyverune_render_prompt
+    add-zsh-hook preexec _nyverune_preexec
+else
+    precmd_functions+=(_nyverune_render_prompt)
+    preexec_functions+=(_nyverune_preexec)
+fi
+
+# Initial prompt render
+_nyverune_render_prompt
